@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Page 2</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* PAGE */
+.page{
+  width:100vw;
+  height:100vh;
+  position:relative;
+  background-image:url("PAGE 2.png");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+
+/* BOUTON */
+.bouton{
+  position:absolute;
+  left:51%;
+  bottom:70px;
+  transform:translateX(-50%);
+  width:300px;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+
+.bouton:hover{
+  transform:translateX(-50%) scale(1.08);
+}
+
+.close-btn{
+  position:absolute;
+  top:30px;
+  right:30px;
+
+  width:170px;
+  cursor:pointer;
+
+  transition:0.3s ease;
+}
+
+.close-btn:hover{
+  transform:scale(1.1) rotate(5deg);
+}
+
+.close-btn img{
+  width:50px;
+  display:block;
+}
+
+/* TRANSITION */
+
+.fade-out{
+  animation:fadeOut 0.6s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+
+@keyframes fadeOut{
+  from{
+    opacity:1;
+  }
+
+  to{
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+  <!-- CROIX -->
+
+<a href="Sommaire Arcane.html" class="close-btn">
+  <img src="delete blanc.png" alt="Fermer">
+</a>
+
+    <section class="page">
+
+      <a href="Sommaire Arcane.html">
+        <img src="CROIX BLANCHE .png" class="close-btn">
+      </a>
+
+        <a href="Partie 2 Piltover.html">
+          <img src="PAGE 2 BOUTON 1.png" class="bouton" alt="Découvrir">
+        </a>
+      
+      </section>
+
+</body>
+
+<script>
+
+  /* TRANSITION ENTRE LES PAGES */
+  
+  document.querySelectorAll("a").forEach(link => {
+  
+  link.addEventListener("click", function(e){
+  
+    e.preventDefault();
+  
+    const destination = this.href;
+  
+    document.body.classList.add("fade-out");
+  
+    setTimeout(() => {
+      window.location.href = destination;
+    }, 600);
+  
+  });
+  
+  });
+  
+  </script>
+
+</html>

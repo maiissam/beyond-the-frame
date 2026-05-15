@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll Horizontal Zaun</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html, body{
+  width:100%;
+  height:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-behavior:smooth;
+}
+
+.container{
+  display:flex;
+  height:100vh;
+  width:max-content;
+  scroll-snap-type:x mandatory;
+}
+
+.page{
+  width:100vw;
+  height:100vh;
+  flex-shrink:0;
+  scroll-snap-align:start;
+  position:relative;
+}
+
+.page > img.fond{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* CACHE BARRE */
+body::-webkit-scrollbar{
+  display:none;
+}
+
+/* IMAGE FIXE */
+.effet-fixe{
+  position:fixed;
+  top:0;
+  left:0;
+
+  width:100vw;
+  height:100vh;
+
+  object-fit:cover;
+
+  pointer-events:none;
+
+  z-index:9999;
+}
+
+/* BOUTONS PLAY */
+.play{
+  position:absolute;
+  width:150px;
+  z-index:1000;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+
+.play:hover{
+  transform:scale(1.08);
+}
+
+/* POSITIONS DES BOUTONS */
+.play1{
+  left:42%;
+  top:50%;
+}
+
+.play1b{
+  left:72%;
+  top:58%;
+}
+
+.play2{
+  left:50%;
+  top:48%;
+}
+
+.play2b{
+  left:90%;
+  top:55%;
+}
+
+/* POPUPS */
+.popup{
+  position:absolute;
+  width:700px;
+
+  opacity:0;
+  pointer-events:none;
+
+  z-index:2000;
+
+  transition:
+  opacity 0.4s ease,
+  transform 0.4s ease;
+
+  transform:scale(0.95);
+}
+
+.popup.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+/* POSITIONS DES POPUPS */
+.popup1{
+  left:20%;
+  top:20%;
+}
+
+.popup1b{
+  left:65%;
+  top:35%;
+}
+
+.popup2{
+  left:45%;
+  top:30%;
+}
+
+.popup2b{
+  left:56%;
+  top:25%;
+}
+
+/* BOUTON FINAL */
+.fin-btn{
+  position:absolute;
+  right:200px;
+  bottom:270px;
+  width:300px;
+  transition:0.3s ease;
+  z-index:100;
+}
+
+.fin-btn:hover{
+  transform:scale(1.08);
+}
+
+.page{
+  width:100vw;
+  height:100vh;
+  flex-shrink:0;
+  scroll-snap-align:start;
+  position:relative;
+  overflow:hidden;
+}
+
+/* TRANSITION FONDU */
+body{
+  animation:fadeIn 0.8s ease;
+}
+
+.fade-out{
+  animation:fadeOut 0.6s ease forwards;
+}
+
+/* TRANSITION FONDU */
+body{
+  animation:fadeIn 0.8s ease;
+}
+
+.fade-out{
+  animation:fadeOut 0.6s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+
+@keyframes fadeOut{
+  from{
+    opacity:1;
+  }
+
+  to{
+    opacity:0;
+  }
+}
+
+
+/* FLECHE GAUCHE */
+.fleche-gauche{
+  position:fixed;
+
+  left:40px;
+  top:50%;
+
+  transform:translateY(-50%) rotate(180deg);
+
+  width:80px;
+
+  z-index:5000;
+
+  cursor:pointer;
+
+  transition:0.3s ease;
+}
+
+.fleche-gauche:hover{
+  transform:translateY(-50%) rotate(180deg) scale(1.08);
+}
+
+.bouton:hover{
+  transform:translateX(-50%) scale(1.08);
+}
+
+/* CROIX */
+.close-btn{
+  position:fixed;
+
+  top:30px;
+  right:30px;
+
+  width:60px;
+
+  cursor:pointer;
+
+  transition:0.3s ease;
+
+  z-index:20000;
+}
+
+.close-btn:hover{
+  transform:scale(1.1) rotate(5deg);
+}
+
+.close-btn img{
+  width:100%;
+  display:block;
+}
+
+</style>
+</head>
+
+<body>
+ <!-- CROIX -->
+
+ <a href="Sommaire Arcane.html" class="close-btn">
+  <img src="delete rose.png" alt="Fermer">
+</a>
+
+<!-- IMAGE FIXE -->
+<img src="PAGE 2 EFFET ZAUN.png" class="effet-fixe">
+
+<!-- FLECHE GAUCHE -->
+<a href="Partie 2 Piltover.html">
+  <img src="next rose.png" class="fleche-gauche">
+</a>
+
+
+
+<div class="container">
+
+  <!-- PAGE 1 -->
+  <section class="page">
+
+    <img src="PAGE ZAUN.png" class="fond">
+
+    <img src="PARTIE 2 BOUTON PLAY 1.png"
+    class="play play1"
+    onclick="togglePopup('popup1')">
+
+    <img src="PARTIE 2 BOUTON PLAY 1B.png"
+    class="play play1b"
+    onclick="togglePopup('popup1b')">
+
+    <img src="PARTIE 2 PLAY1 ZAUN.png"
+    class="popup popup1"
+    id="popup1">
+
+    <img src="PARTIE 2 PLAY1B ZAUN.png"
+    class="popup popup1b"
+    id="popup1b">
+
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page">
+
+    <img src="PAGE ZAUN 2.png" class="fond">
+
+    <img src="PARTIE 2 BOUTON PLAY 2.png"
+    class="play play2"
+    onclick="togglePopup('popup2')">
+
+    <img src="PARTIE 2 BOUTON PLAY 2B.png"
+    class="play play2b"
+    onclick="togglePopup('popup2b')">
+
+    <img src="PARTIE 2 PLAY2 ZAUN.png"
+    class="popup popup2"
+    id="popup2">
+
+    <img src="PARTIE 2 PLAY2B ZAUN.png"
+    class="popup popup2b"
+    id="popup2b">
+
+  </section>
+
+  <!-- PAGE 3 -->
+  <section class="page">
+
+    <img src="PAGE ZAUN 3.png" class="fond">
+
+  </section>
+
+  </section>
+
+</div>
+
+<script>
+
+function togglePopup(id){
+
+  const popup = document.getElementById(id);
+
+  if(popup.classList.contains('active')){
+
+    popup.classList.remove('active');
+
+  } else {
+
+    document.querySelectorAll('.popup').forEach(p => {
+      p.classList.remove('active');
+    });
+
+    popup.classList.add('active');
+  }
+}
+
+/* TRANSITION ENTRE LES PAGES */
+
+document.querySelectorAll("a").forEach(link => {
+
+link.addEventListener("click", function(e){
+
+  e.preventDefault();
+
+  const destination = this.href;
+
+  document.body.classList.add("fade-out");
+
+  setTimeout(() => {
+    window.location.href = destination;
+  }, 600);
+
+});
+});
+
+</script>
+
+</body>
+</html>

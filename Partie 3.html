@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Parallaxe 3D Épique</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:url("Partie 3 fond.png") center/cover no-repeat;
+    perspective:1800px;
+}
+
+/* EFFET AU-DESSUS */
+.image-fixe{
+    position:fixed;
+    inset:0;
+    width:100vw;
+    height:100vh;
+    object-fit:cover;
+    z-index:1;
+    pointer-events:none;
+}
+
+/* SCÈNE */
+.scene{
+    position:relative;
+    width:1200px;
+    max-width:98vw;
+    transform-style:preserve-3d;
+    z-index:2;
+}
+
+.card{
+    position:relative;
+    transform-style:preserve-3d;
+    transition:transform .08s linear, opacity .35s ease;
+}
+
+.card.change{
+    opacity:0;
+    transform:scale(.95);
+}
+
+.image-wrap{
+    position:relative;
+    overflow:hidden;
+    border-radius:34px;
+    transform-style:preserve-3d;
+    box-shadow:
+        0 80px 160px rgba(75,206,136,.35),
+        0 0 160px rgba(75,206,136,.45);
+}
+
+.main-image{
+    width:100%;
+    display:block;
+    transform:translateZ(60px) scale(1.04);
+    filter:saturate(1.22) contrast(1.12) brightness(1.05);
+    pointer-events:none;
+    user-select:none;
+}
+
+.depth-layer{
+    position:absolute;
+    inset:-8%;
+    background-image:var(--img);
+    background-size:cover;
+    background-position:center;
+    filter:blur(26px) saturate(1.6) brightness(1.2);
+    transform:translateZ(-160px) scale(1.22);
+    opacity:.75;
+    z-index:-1;
+}
+
+.glow{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(
+        circle at var(--x,50%) var(--y,50%),
+        rgba(255,255,255,.55),
+        rgba(115,124,119,.25),
+        transparent 30%
+    );
+    mix-blend-mode:screen;
+    opacity:0;
+    transition:opacity .25s;
+    pointer-events:none;
+}
+
+.card:hover .glow{
+    opacity:1;
+}
+
+.reflection{
+    position:absolute;
+    inset:-40%;
+    background:linear-gradient(
+        115deg,
+        transparent 35%,
+        rgba(75,206,136,.35) 48%,
+        transparent 60%
+    );
+    transform:translateX(-80%) rotate(8deg);
+    mix-blend-mode:screen;
+    animation:shine 5s infinite;
+    pointer-events:none;
+}
+
+.vignette{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle,transparent 55%,rgba(0,0,0,.45));
+    pointer-events:none;
+}
+
+.aura{
+    position:absolute;
+    inset:-10%;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(160,100,255,.35),transparent 30%),
+        radial-gradient(circle at 80% 80%,rgba(80,220,255,.35),transparent 30%),
+        radial-gradient(circle at 60% 40%,rgba(255,100,220,.2),transparent 35%);
+    filter:blur(40px);
+    transform:translateZ(-220px);
+    animation:auraMove 8s ease-in-out infinite alternate;
+    pointer-events:none;
+}
+
+/* FLÈCHES */
+.arrow{
+    position:fixed;
+    top:50%;
+    width:82px;
+    height:82px;
+    transform:translateY(-50%);
+    z-index:10;
+    cursor:pointer;
+    transition:.25s ease;
+    user-select:none;
+}
+
+.arrow:hover{
+    transform:translateY(-50%) scale(1.12);
+}
+
+.arrow-left{
+    left:35px;
+    transform:translateY(-50%) rotate(180deg);
+}
+
+.arrow-left:hover{
+    transform:translateY(-50%) rotate(180deg) scale(1.12);
+}
+
+.arrow-right{
+    right:35px;
+}
+
+/* ÉTINCELLES */
+.spark{
+    position:fixed;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    pointer-events:none;
+    background:white;
+    box-shadow:
+        0 0 8px white,
+        0 0 18px #4bce88,
+        0 0 30px #ff7cff;
+    animation:sparkMove .75s ease-out forwards;
+    z-index:999;
+}
+
+@keyframes sparkMove{
+    from{
+        transform:translate(0,0) scale(1);
+        opacity:1;
+    }
+
+    to{
+        transform:
+            translate(
+                calc(var(--dx) * 1px),
+                calc(var(--dy) * 1px)
+            )
+            scale(0);
+        opacity:0;
+    }
+}
+
+@keyframes shine{
+    0%{
+        transform:translateX(-90%) rotate(8deg);
+    }
+
+    100%{
+        transform:translateX(90%) rotate(8deg);
+    }
+}
+
+@keyframes auraMove{
+    from{
+        transform:translateZ(-220px) translate(-20px,-10px) scale(1);
+    }
+
+    to{
+        transform:translateZ(-220px) translate(20px,15px) scale(1.05);
+    }
+}
+
+.close-btn{
+  position:fixed;
+  top:25px;
+  right:25px;
+
+  z-index:99999;
+
+  width:100px;
+
+  cursor:pointer;
+
+  transition:0.3s ease;
+}
+
+.close-btn:hover{
+  transform:scale(1.12) rotate(5deg);
+}
+
+.close-btn img{
+  width:100%;
+  display:block;
+}
+</style>
+</head>
+
+<body>
+
+<img src="PARTIE 3 EFFET.png" class="image-fixe" alt="">
+
+<a href="Sommaire Arcane.html" class="close-btn">
+    <img src="delete blanc.png" alt="Fermer">
+  </a>
+
+<img src="next blanche.png" class="arrow arrow-left" id="prevBtn" alt="flèche gauche">
+<img src="next blanche.png" class="arrow arrow-right" id="nextBtn" alt="flèche droite">
+
+<div class="scene">
+    <div class="aura"></div>
+
+    <div class="card" id="card">
+        <div class="image-wrap" id="imageWrap">
+            <div class="depth-layer" id="depthLayer"></div>
+
+            <img src="Partie 3 Image 1.jpg" class="main-image" id="mainImage" alt="image">
+
+            <div class="glow" id="glow"></div>
+            <div class="reflection"></div>
+            <div class="vignette"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+const card = document.getElementById("card");
+const glow = document.getElementById("glow");
+const depthLayer = document.getElementById("depthLayer");
+const mainImage = document.getElementById("mainImage");
+
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+/* ICI TU AJOUTES TES IMAGES */
+const images = [
+    "Partie 3 Image 1.jpg",
+    "Partie 3 Image 2.jpg",
+    "Partie 3 Image 3.jpg",
+    "Partie 3 Image 4.jpg",
+];
+
+let currentIndex = 0;
+
+function updateImage(){
+    card.classList.add("change");
+
+    setTimeout(() => {
+        mainImage.src = images[currentIndex];
+        depthLayer.style.setProperty("--img", `url("${images[currentIndex]}")`);
+
+        card.classList.remove("change");
+    }, 250);
+}
+
+updateImage();
+
+nextBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+
+    currentIndex++;
+
+    if(currentIndex >= images.length){
+        currentIndex = 0;
+    }
+
+    updateImage();
+});
+
+prevBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+
+    currentIndex--;
+
+    if(currentIndex < 0){
+        currentIndex = images.length - 1;
+    }
+
+    updateImage();
+});
+
+let targetRotateX = 0;
+let targetRotateY = 0;
+let currentRotateX = 0;
+let currentRotateY = 0;
+
+let targetMoveX = 0;
+let targetMoveY = 0;
+let currentMoveX = 0;
+let currentMoveY = 0;
+
+window.addEventListener("mousemove", function(e){
+
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const px = x / rect.width - 0.5;
+    const py = y / rect.height - 0.5;
+
+    targetRotateY = px * 26;
+    targetRotateX = py * -22;
+
+    targetMoveX = px * 28;
+    targetMoveY = py * 22;
+
+    glow.style.setProperty("--x", `${x}px`);
+    glow.style.setProperty("--y", `${y}px`);
+});
+
+window.addEventListener("mouseleave", function(){
+    targetRotateX = 0;
+    targetRotateY = 0;
+    targetMoveX = 0;
+    targetMoveY = 0;
+});
+
+function animate(){
+    currentRotateX += (targetRotateX - currentRotateX) * 0.08;
+    currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+
+    currentMoveX += (targetMoveX - currentMoveX) * 0.08;
+    currentMoveY += (targetMoveY - currentMoveY) * 0.08;
+
+    card.style.transform = `
+        rotateX(${currentRotateX}deg)
+        rotateY(${currentRotateY}deg)
+        translate3d(${currentMoveX}px, ${currentMoveY}px, 80px)
+        scale(1.07)
+    `;
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("click", function(e){
+    createSparks(e.clientX, e.clientY);
+});
+
+function createSparks(x, y){
+    const amount = 28;
+
+    for(let i = 0; i < amount; i++){
+        const spark = document.createElement("span");
+        spark.className = "spark";
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 40 + Math.random() * 90;
+
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+
+        spark.style.left = `${x}px`;
+        spark.style.top = `${y}px`;
+        spark.style.setProperty("--dx", dx);
+        spark.style.setProperty("--dy", dy);
+
+        document.body.appendChild(spark);
+
+        spark.addEventListener("animationend", function(){
+            spark.remove();
+        });
+    }
+}
+</script>
+
+</body>
+</html>
