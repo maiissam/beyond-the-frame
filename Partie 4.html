@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Behind the scene</title>
+
+<style>
+
+@font-face {
+  font-family: "Glacial";
+  src: url("GlacialIndifference-Regular.woff2") format("woff2");
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  font-family:"Glacial", sans-serif;
+  position:relative;
+}
+
+/* IMAGE DE FOND EN HTML */
+
+.background{
+  position:fixed;
+  top:50%;
+  left:50%;
+
+  transform:translate(-50%, -50%);
+
+  width:100vw;
+  height:100vh;
+
+  object-fit:cover;
+  z-index:-1;
+}
+
+/* IMAGE CLIQUABLE */
+
+.video-link{
+  position:absolute;
+
+  top:100px;
+  left:250px;
+
+  width:650px;
+
+  transition:0.3s ease;
+}
+
+.video-link img{
+  width:1100px;
+  display:block;
+}
+
+.video-link:hover{
+  transform:scale(1.03);
+}
+
+/* CROIX */
+
+.close-btn{
+  position:absolute;
+  top:30px;
+  right:30px;
+
+  width:90px;
+  cursor:pointer;
+
+  transition:0.3s ease;
+}
+
+.close-btn:hover{
+  transform:scale(1.1) rotate(5deg);
+}
+
+.close-btn img{
+  width:50px;
+  display:block;
+}
+
+/* TRANSITION */
+
+body{
+  animation:fadeIn 0.8s ease;
+}
+
+.fade-out{
+  animation:fadeOut 0.6s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+
+@keyframes fadeOut{
+  from{
+    opacity:1;
+  }
+
+  to{
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<img src="Partie 4 fond.png" class="background" alt="Fond">
+
+<!-- CROIX -->
+
+<a href="Sommaire Arcane.html" class="close-btn">
+  <img src="delete bleu.png" alt="Fermer">
+</a>
+
+<!-- VIDEO -->
+
+<a href="https://youtube.com/playlist?list=PLJe0q7naxEsaETnkjMs4HEDQa_TEAv1Rd&si=fjuEKiMSrp4Emobk" class="video-link">
+
+  <img src="Partie 4 Vidéo.png" alt="Behind the scene">
+
+</a>
+
+<script>
+
+/* TRANSITION ENTRE LES PAGES */
+
+document.querySelectorAll("a").forEach(link => {
+
+link.addEventListener("click", function(e){
+
+  e.preventDefault();
+
+  const destination = this.href;
+
+  document.body.classList.add("fade-out");
+
+  setTimeout(() => {
+    window.location.href = destination;
+  }, 600);
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
