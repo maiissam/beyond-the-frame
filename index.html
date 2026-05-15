@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond the Frame</title>
+
+<style>
+
+@font-face {
+  font-family: 'Glacial';
+  src: url("GlacialIndifference-Bold.woff2") format("woff2");
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+/* PAGE ACCUEIL */
+
+.hero{
+  height:100vh;
+  width:100%;
+
+  background:url("fond.png") center/cover no-repeat;
+
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+
+  padding-top:10px;
+
+  text-align:center;
+
+  animation:fadeIn 0.8s ease;
+}
+
+.content{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* LOGO */
+
+.logo{
+  width:1000px;
+  max-width:100%;
+  margin-bottom:-100px;
+}
+
+/* TEXTE */
+
+.subtitle{
+  font-family:'Glacial', Arial, sans-serif;
+
+  font-size:20px;
+
+  letter-spacing:2px;
+
+  text-transform:uppercase;
+
+  color:#111;
+
+  margin-bottom:22px;
+}
+
+/* BOUTON */
+
+.cta-button{
+  background:#000;
+  color:#fff;
+
+  border:none;
+
+  padding:16px 38px;
+
+  font-size:16px;
+
+  font-family:'Glacial', Arial, sans-serif;
+
+  text-transform:uppercase;
+
+  border-radius:999px;
+
+  cursor:pointer;
+
+  letter-spacing:1px;
+
+  text-decoration:none;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+
+  transition:all 0.3s ease;
+}
+
+.cta-button:hover{
+  background:#1a1a1a;
+  transform:scale(1.05);
+}
+
+/* BOUTON SON */
+
+.sound-btn{
+  position:fixed;
+
+  bottom:28px;
+  right:32px;
+
+  z-index:99999;
+
+  background:none;
+  border:none;
+
+  cursor:pointer;
+
+  transition:0.3s ease;
+}
+
+.sound-btn img{
+  width:55px;
+  display:block;
+}
+
+.sound-btn:hover{
+  transform:scale(1.1);
+}
+
+/* IFRAME */
+
+#siteFrame{
+  width:100vw;
+  height:100vh;
+
+  border:none;
+
+  display:none;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn{
+
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+@media (max-width:700px){
+
+  .hero{
+    padding-top:120px;
+  }
+
+  .logo{
+    width:95%;
+    margin-bottom:-40px;
+  }
+
+  .subtitle{
+    font-size:14px;
+    padding:0 20px;
+  }
+
+  .sound-btn img{
+    width:48px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+
+<audio id="bg-music" loop>
+  <source src="Site Audio.mp4" type="audio/mp4">
+</audio>
+
+<!-- BOUTON SON -->
+
+<button class="sound-btn" id="sound-toggle">
+
+  <img src="mute-2.png" id="sound-icon" alt="Son">
+
+</button>
+
+<!-- PAGE ACCUEIL -->
+
+<section class="hero" id="homePage">
+
+  <div class="content">
+
+    <img src="logo.png" alt="Beyond the Frame" class="logo">
+
+    <p class="subtitle">
+      ARCANE : QUAND L’ANIMATION DEVIENT UNE PEINTURE VIVANTE
+    </p>
+
+    <button class="cta-button" id="startBtn">
+      COMMENCER L’EXPÉRIENCE
+    </button>
+
+  </div>
+
+</section>
+
+<!-- SITE -->
+
+<iframe id="siteFrame" name="siteFrame"></iframe>
+
+<script>
+
+/* AUDIO */
+
+const music = document.getElementById("bg-music");
+
+const soundBtn = document.getElementById("sound-toggle");
+
+const soundIcon = document.getElementById("sound-icon");
+
+let isPlaying = false;
+
+/* BOUTON SON */
+
+soundBtn.addEventListener("click", () => {
+
+  if(!isPlaying){
+
+    music.play();
+
+    soundIcon.src = "speaker-filled-audio-tool-2.png";
+
+    isPlaying = true;
+
+  }
+
+  else{
+
+    music.pause();
+
+    soundIcon.src = "mute-2.png";
+
+    isPlaying = false;
+
+  }
+
+});
+
+
+/* OUVERTURE SITE */
+
+const startBtn = document.getElementById("startBtn");
+
+const homePage = document.getElementById("homePage");
+
+const siteFrame = document.getElementById("siteFrame");
+
+startBtn.addEventListener("click", () => {
+
+  homePage.style.display = "none";
+
+  siteFrame.style.display = "block";
+
+  siteFrame.src = "Sommaire Arcane.html";
+
+});
+
+</script>
+
+</body>
+</html>

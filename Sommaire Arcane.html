@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sommaire</title>
+
+<style>
+
+@font-face {
+  font-family: "Glacial Indifference";
+  src: url("GlacialIndifference-Regular.woff2") format("woff2");
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  font-family:"Glacial Indifference", Arial, sans-serif !important;
+  background:#fffaf0;
+  overflow:hidden;
+  animation:fadeIn 0.6s ease;
+}
+
+.sommaire-page{
+  position:relative;
+  width:100%;
+  height:100vh;
+  background:url("FOND 2.png") center/cover no-repeat;
+}
+
+.corner-logo{
+  position:absolute;
+  top:24px;
+  left:32px;
+  width:110px;
+}
+
+.corner-logo:hover{
+  opacity:70%;
+  transition:all 0.3s ease;
+  transform:translateX(-5%);
+}
+
+.title{
+  position:absolute;
+  top:86px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:58px;
+  font-weight:900;
+  letter-spacing:3px;
+  color:#000;
+}
+
+.cards{
+  position:absolute;
+  top:350px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1180px, 94vw);
+
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+
+  gap:28px;
+}
+
+.card{
+  position:relative;
+
+  width:165px;
+  height:185px;
+
+  background:rgba(255,255,255,0.88);
+
+  border-radius:6px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+
+  transition:all 0.3s ease;
+
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  flex-direction:column;
+
+  padding:80px 14px 20px;
+
+  text-align:center;
+
+  z-index:1;
+
+  text-decoration:none;
+}
+
+.card:hover{
+  z-index:10;
+}
+
+.card.up{
+  transform:translateY(0);
+}
+
+.card.down{
+  transform:translateY(75px);
+}
+
+.card.up:hover{
+  transform:translateY(-10px) scale(1.05);
+}
+
+.card.down:hover{
+  transform:translateY(65px) scale(1.05);
+}
+
+.yellow p { color:#e2c46b; }
+.pink p { color:#f13a9e; }
+.green p { color:#72cc8f; }
+.blue p { color:#2c9ee9; }
+.purple p { color:#8051b6; }
+
+.gear{
+  position:absolute;
+  top:-270px;
+  left:50%;
+  transform:translateX(-48%);
+
+  width:500px;
+  height:500px;
+
+  pointer-events:none;
+}
+
+.card p{
+  font-size:14px;
+  font-weight:800;
+  line-height:1.28;
+}
+
+.yellow .gear{
+  background:url("PARTIE 1.png") center/contain no-repeat;
+}
+
+.pink .gear{
+  background:url("PARTIE 2.png") center/contain no-repeat;
+}
+
+.green .gear{
+  background:url("PARTIE 3.png") center/contain no-repeat;
+}
+
+.blue .gear{
+  background:url("PARTIE 4.png") center/contain no-repeat;
+}
+
+.purple .gear{
+  background:url("PARTIE 5.png") center/contain no-repeat;
+}
+
+.fade-out{
+  animation:fadeOut 0.6s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes fadeOut{
+  from{
+    opacity:1;
+  }
+
+  to{
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<main class="sommaire-page">
+
+  <a href="index.html" target="_top">
+
+    <img src="logo 3.png" alt="Beyond the Frame" class="corner-logo">
+
+  </a>
+
+  <h1 class="title">SOMMAIRE</h1>
+
+  <section class="cards">
+
+    <a href="Partie 1a.html" target="siteFrame" class="card yellow up">
+
+      <div class="gear"></div>
+
+      <p>
+        De League of Legends à Arcane : les origines de la série.
+      </p>
+
+    </a>
+
+    <a href="Partie 2.html" target="siteFrame" class="card pink down">
+
+      <div class="gear"></div>
+
+      <p>
+        Plongez dans l’univers d’Arcane et laissez-vous porter par son histoire.
+      </p>
+
+    </a>
+
+    <a href="Partie 3.html" target="siteFrame" class="card green up">
+
+      <div class="gear"></div>
+
+      <p>
+        Explorez des paysages vivants où la profondeur crée l’illusion.
+      </p>
+
+    </a>
+
+    <a href="Partie 4.html" target="siteFrame" class="card blue down">
+
+      <div class="gear"></div>
+
+      <p>
+        Découvrez comment l’image prend vie grâce à un savoir-faire unique.
+      </p>
+
+    </a>
+
+    <a href="Partie 5.html" target="siteFrame" class="card purple up">
+
+      <div class="gear"></div>
+
+      <p>
+        Au-delà de l’image, une empreinte humaine.
+      </p>
+
+    </a>
+
+  </section>
+
+</main>
+
+<script>
+
+/* TRANSITIONS */
+
+document.querySelectorAll("a").forEach(link => {
+
+  link.addEventListener("click", function(){
+
+    document.body.classList.add("fade-out");
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>

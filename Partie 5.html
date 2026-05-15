@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Partie 5</title>
+
+<style>
+@font-face{
+  font-family:"Glacial";
+  src:url("GlacialIndifference-Regular.woff2") format("woff2");
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  font-family:"Glacial", sans-serif;
+  background:url("Partie 5 fond.png") center/cover no-repeat;
+  position:relative;
+}
+
+/* CROIX */
+.close-btn{
+  position:fixed;
+  top:25px;
+  right:25px;
+  width:100px;
+  z-index:10;
+}
+
+.close-btn img{
+  width:100%;
+  display:block;
+}
+
+/* CONTENU */
+.container{
+  position:absolute;
+  top:470px;
+  left:50%;
+  transform:translateX(-50%);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* TEXTE */
+.texte{
+  width:1000px;
+  max-width:80vw;
+  text-align:center;
+  color:#a100ff;
+  font-size:29px;
+  line-height:1.35;
+  margin-bottom:35px;
+}
+
+.texte h1{
+  font-size:38px;
+  margin-bottom:10px;
+}
+
+/* IMAGE */
+.image-fond{
+  width:520px;
+  display:block;
+  box-shadow:0 0 25px rgba(190,0,255,0.45);
+}
+
+/* BOUTON */
+.bouton-download{
+  width:250px;
+  display:block;
+  transition:0.3s ease;
+  margin-bottom:100px
+}
+
+.bouton-download:hover{
+  transform:scale(1.06);
+}
+</style>
+</head>
+
+<body>
+
+<a href="Sommaire Arcane.html" class="close-btn">
+  <img src="delete blanc.png" alt="Fermer">
+</a>
+
+<div class="container">
+
+  <img src="FOND ECRAN 2.png" alt="Fond écran" class="image-fond">
+
+  <a href="FOND ECRAN 2.png" download>
+    <img src="PAGE 5 BOUTON.png" alt="Télécharger" class="bouton-download">
+  </a>
+
+</div>
+
+</body>
+</html>
